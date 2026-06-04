@@ -1,0 +1,711 @@
+/* ==========================================
+   1. RESET & VARIABLE DEFINITIONS
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --primary-pastel: #ffafcc;
+    --secondary-pastel: #ffc2d1;
+    --dark-pink: #fb6f92;
+    --light-bg: #ffe5ec;
+    --white-glass: rgba(255, 255, 255, 0.45);
+    --border-glass: rgba(255, 255, 255, 0.4);
+    --text-color: #4a4a4a;
+}
+
+body {
+    background: linear-gradient(-45deg, #ffe5ec, #ffc2d1, #ffafcc, #fbc4b6);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: var(--text-color);
+    overflow-x: hidden;
+    position: relative;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ==========================================
+   2. ROMANTIC LOADING SCREEN
+   ========================================== */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--light-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.heart-loader {
+    width: 60px;
+    height: 60px;
+    background-color: var(--dark-pink);
+    margin: 20px auto;
+    transform: rotate(45deg);
+    animation: beat 1.2s infinite ease-in-out;
+    position: relative;
+}
+
+.heart-loader:before, .heart-loader:after {
+    content: "";
+    background-color: var(--dark-pink);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+}
+.heart-loader:before { top: -30px; left: 0; }
+.heart-loader:after { left: -30px; top: 0; }
+
+@keyframes beat {
+    0%, 100% { transform: scale(1) rotate(45deg); }
+    30% { transform: scale(1.2) rotate(45deg); }
+    50% { transform: scale(1.1) rotate(45deg); }
+}
+
+#loading-screen p {
+    font-size: 1.1rem;
+    color: var(--dark-pink);
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* ==========================================
+   3. BACKGROUND CANVAS & STRUCTURAL LAYOUTS
+   ========================================== */
+#heart-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-padding {
+    padding: 80px 0;
+    position: relative;
+    z-index: 2;
+}
+
+.text-center { text-align: center; }
+
+/* Glassmorphism Generic Definition */
+.glass {
+    background: var(--white-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(251, 111, 146, 0.15);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: var(--dark-pink);
+    margin-bottom: 40px;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+.subtitle-dark {
+    margin-top: -30px;
+    margin-bottom: 30px;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Buttons */
+.btn-main {
+    background: var(--dark-pink);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(253, 111, 146, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-main:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(253, 111, 146, 0.6);
+}
+
+.center-btn { display: block; margin: 20px auto 0 auto; }
+.hidden { display: none !important; }
+
+/* ==========================================
+   4. HERO LANDING PAGE
+   ========================================== */
+.hero {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+    padding: 20px;
+}
+
+.hero-glass {
+    padding: 50px 40px;
+    text-align: center;
+    max-width: 700px;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 24px;
+    border: 1px solid var(--border-glass);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+}
+
+.hero h1 {
+    font-size: 3rem;
+    color: var(--dark-pink);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero .subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 35px;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+/* ==========================================
+   5. MUSIC PLAYER FLOATING COMPONENT
+   ========================================== */
+.music-player-widget {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 100;
+    gap: 15px;
+}
+
+.music-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    background: var(--dark-pink);
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.music-info span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: block;
+}
+
+.bar-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 15px;
+    margin-top: 3px;
+}
+
+.bar {
+    width: 3px;
+    height: 3px;
+    background-color: var(--dark-pink);
+    border-radius: 2px;
+}
+
+/* Animated Soundwaves via JS assignment class */
+.playing .bar:nth-child(1) { animation: pulseWave 0.6s ease infinite alternate; }
+.playing .bar:nth-child(2) { animation: pulseWave 0.9s ease infinite alternate 0.2s; }
+.playing .bar:nth-child(3) { animation: pulseWave 0.7s ease infinite alternate 0.4s; }
+
+@keyframes pulseWave {
+    0% { height: 3px; }
+    100% { height: 15px; }
+}
+
+/* ==========================================
+   6. RELATIONSHIP TIMER
+   ========================================== */
+.timer-container {
+    display: grid;
+    grid-template-columns: repeat(4, 150px);
+    justify-content: center;
+    gap: 25px;
+    padding: 40px;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.time-box {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.time-box span {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--dark-pink);
+    display: block;
+}
+
+.time-box p {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+/* ==========================================
+   7. LOVE LETTER SECTION
+   ========================================== */
+.letter-card {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 50px 40px;
+    position: relative;
+}
+
+.letter-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.letter-icon {
+    font-size: 3rem;
+    color: var(--dark-pink);
+}
+
+.letter-body {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    text-align: justify;
+    min-height: 150px;
+}
+
+/* Blink cursor for dynamic typing effect */
+.typed-cursor {
+    font-weight: 100;
+    color: var(--dark-pink);
+    animation: blink 0.7s infinite;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* ==========================================
+   8. MEMORY PHOTO GALLERY
+   ========================================== */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    height: 280px;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(251, 111, 146, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    padding: 15px;
+    text-align: center;
+}
+
+.gallery-item .overlay span {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+}
+
+/* Hover States */
+.gallery-item:hover { transform: translateY(-5px); }
+.gallery-item:hover img { transform: scale(1.08); }
+.gallery-item:hover .overlay { opacity: 1; }
+.gallery-item:hover .overlay span { transform: translateY(0); }
+
+/* Lightbox Modal */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox-content {
+    max-width: 85%;
+    max-height: 75%;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+#lightbox-caption {
+    color: white;
+    margin-top: 15px;
+    font-size: 1.2rem;
+}
+
+.close-lightbox {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: #fff;
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+/* ==========================================
+   9. INTERACTIVE REASONS SECTIONS
+   ========================================== */
+.reasons-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.reason-card {
+    height: 180px;
+    cursor: pointer;
+    position: relative;
+    perspective: 1000px;
+    background: transparent !important; /* Clear container for flip */
+    border: none !important;
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid var(--border-glass);
+}
+
+.card-front {
+    background: var(--white-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--dark-pink);
+    text-align: center;
+}
+
+.card-front i { font-size: 2.2rem; margin-bottom: 10px; }
+.card-front h3 { font-size: 1.1rem; }
+
+.card-back {
+    background: rgba(251, 111, 146, 0.9);
+    color: white;
+    transform: rotateY(180deg);
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+}
+
+/* Flipped Action Triggered via Javascript class toggle */
+.reason-card.flipped .card-front { transform: rotateY(180deg); }
+.reason-card.flipped .card-back { transform: rotateY(360deg); }
+
+/* ==========================================
+   10. LOVE RELATIONSHIP QUIZ
+   ========================================== */
+.quiz-wrapper { max-width: 650px; }
+
+.quiz-container {
+    padding: 40px;
+    min-height: 250px;
+}
+
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.progress-bar {
+    width: 60%;
+    height: 8px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#progress {
+    width: 0%;
+    height: 100%;
+    background: var(--dark-pink);
+    transition: width 0.4s ease;
+}
+
+#question-text {
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option-btn {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid var(--border-glass);
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.option-btn:hover {
+    background: white;
+    transform: translateX(3px);
+}
+
+.option-btn.correct { background: #caebd5 !important; border-color: #2ec4b6; color: #1b4332; }
+.option-btn.wrong { background: #fcdbd9 !important; border-color: #e63946; color: #721c24; }
+
+.heart-badge {
+    font-size: 4rem;
+    color: var(--dark-pink);
+    margin-top: 20px;
+    animation: beat 1.5s infinite linear;
+}
+
+/* ==========================================
+   11. HIDDEN EASTER EGG & BONUS ENDING
+   ========================================== */
+.secret-wrapper {
+    margin-top: 20px;
+    margin-bottom: -20px;
+}
+
+.secret-trigger {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0.3;
+    transition: opacity 0.3s;
+}
+.secret-trigger:hover { opacity: 1; }
+.hint-text { font-size: 0.75rem; opacity: 0.4; margin-top: 4px; }
+
+/* Modal Design */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 175, 204, 0.4);
+    backdrop-filter: blur(8px);
+    z-index: 3000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    padding: 40px;
+    max-width: 450px;
+    text-align: center;
+    position: relative;
+    animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.modal-heart { font-size: 3.5rem; margin-bottom: 15px; animation: beat 1s infinite; }
+.modal-content p { font-size: 1.3rem; font-weight: 500; line-height: 1.5; color: #222; }
+
+/* Final memory prompt container button items */
+.final-card {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 60px 30px;
+}
+.final-card h2 { margin-bottom: 30px; color: var(--dark-pink); font-size: 2rem;}
+.btn-lg { padding: 16px 45px; font-size: 1.25rem; }
+
+/* Interactive Forever Hearts Overlay Screen Display */
+.final-overlay {
+    position: fixed;
+    top:0; left:0; width:100vw; height:100vh;
+    background: rgba(255, 229, 236, 0.95);
+    z-index: 5000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+.final-overlay.show { opacity: 1; }
+.overlay-text {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--dark-pink);
+    text-align: center;
+    z-index: 5002;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    animation: beat 1.2s infinite ease-in-out;
+}
+
+/* Mouse Sparkles & Click Floating Confetti-hearts */
+.sparkle {
+    position: absolute;
+    pointer-events: none;
+    background: radial-gradient(circle, #fff 20%, transparent 70%);
+    border-radius: 50%;
+    animation: fadeOutParticle 0.6s linear forwards;
+}
+
+.mouse-heart {
+    position: absolute;
+    pointer-events: none;
+    color: var(--dark-pink);
+    font-size: 12px;
+    animation: floatUpParticle 0.8s ease-out forwards;
+}
+
+@keyframes fadeOutParticle { to { transform: scale(2); opacity: 0; } }
+@keyframes floatUpParticle {
+    to {
+        transform: translateY(-40px) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* ==========================================
+   12. SCROLL REVEAL UTILITY CLASSES & FOOTER
+   ========================================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.9s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+footer {
+    text-align: center;
+    padding: 30px 0;
+    font-size: 0.95rem;
+    opacity: 0.7;
+    position: relative;
+    z-index: 2;
+}
+
+/* ==========================================
+   13. STYLES RESPONSIVENESS (MOBILE FRIENDLY)
+   ========================================== */
+@media (max-width: 900px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .reasons-grid { grid-template-columns: repeat(3, 1fr); }
+    .timer-container { grid-template-columns: repeat(2, 140px); gap: 15px; }
+}
+
+@media (max-width: 600px) {
+    .hero h1 { font-size: 2.2rem; }
+    .hero .subtitle { font-size: 1.05rem; }
+    .section-title { font-size: 1.85rem; }
+    .timer-container { grid-template-columns: repeat(2, 120px); padding: 20px; }
+    .time-box span { font-size: 2.2rem; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .reasons-grid { grid-template-columns: repeat(2, 1fr); }
+    .letter-card { padding: 30px 20px; }
+    .letter-body { font-size: 1rem; }
+    .overlay-text { font-size: 2.2rem; }
+}

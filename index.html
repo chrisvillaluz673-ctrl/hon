@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise For You ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="loading-screen">
+        <div class="loader-content">
+            <div class="heart-loader"></div>
+            <p>Preparing something special for you...</p>
+        </div>
+    </div>
+
+    <audio id="bg-music" src="assets/bg-music.mp3" loop></audio>
+
+    <canvas id="heart-canvas"></canvas>
+
+    <header class="hero" id="hero">
+        <div class="hero-glass">
+            <h1 class="animate-text">A Special Surprise For You ❤️</h1>
+            <p class="subtitle">Every moment with you is my favorite memory.</p>
+            <button id="open-btn" class="btn-main">Open My Surprise <i class="fas fa-heart"></i></button>
+        </div>
+    </header>
+
+    <main id="main-content" class="hidden">
+
+        <div class="music-player-widget glass">
+            <button id="music-toggle" class="music-btn">
+                <i id="music-icon" class="fas fa-play"></i>
+            </button>
+            <div class="music-info">
+                <span>Our Song</span>
+                <div class="bar-container">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <section class="section-padding reveal">
+            <div class="container text-center">
+                <h2 class="section-title">Days of Loving You</h2>
+                <div class="timer-container glass">
+                    <div class="time-box"><span id="days">00</span><p>Days</p></div>
+                    <div class="time-box"><span id="hours">00</span><p>Hours</p></div>
+                    <div class="time-box"><span id="minutes">00</span><p>Minutes</p></div>
+                    <div class="time-box"><span id="seconds">00</span><p>Seconds</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding reveal">
+            <div class="container">
+                <div class="letter-card glass">
+                    <div class="letter-header">
+                        <i class="fas fa-envelope-open-text letter-icon"></i>
+                    </div>
+                    <div id="love-letter" class="letter-body">
+                        <span id="typing-text" data-text="My Hon, From the moment you walked into my life, everything changed for the better. You bring so much light, laughter, and warmth into my world. Thank you for being my safe space, my biggest supporter, and my best friend. This little space on the internet is just a tiny reminder of how incredibly much you mean to me. I love you more with each passing day. Forever and always. ❤️"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding reveal">
+            <div class="container">
+                <h2 class="section-title">Our Beautiful Memories</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item glass"><img src="together.jpg" alt="Memory 1"><div class="overlay"><span>Our First Date ✨</span></div></div>
+                    <div class="gallery-item glass"><img src="together2.jpg" alt="Memory 2"><div class="overlay"><span>Your Beautiful Smile 🥰</span></div></div>
+                    <div class="gallery-item glass"><img src="together3.jpg" alt="Memory 3"><div class="overlay"><span>Sweetest Moments ☕</span></div></div>
+                    <div class="gallery-item glass"><img src="together4.jpg" alt="Memory 4"><div class="overlay"><span>Adventures Together 🗺️</span></div></div>
+                    <div class="gallery-item glass"><img src="together1.jpg" alt="Memory 5"><div class="overlay"><span>Everyday Happiness 🏡</span></div></div>
+                    <div class="gallery-item glass"><img src="together.5jpg.jpg" alt="Memory 6"><div class="overlay"><span>To Infinite & Beyond 🌌</span></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding reveal">
+            <div class="container">
+                <h2 class="section-title">10 Reasons Why I Love You</h2>
+                <p class="text-center subtitle-dark">Click each card to reveal a secret</p>
+                <div class="reasons-grid">
+                    <div class="reason-card glass" data-reason="1">
+                        <div class="card-front"><i class="fas fa-heart"></i><h3>Reason 1</h3></div>
+                        <div class="card-back"><p>The way your eyes light up whenever you are genuinely happy.</p></div>
+                    </div>
+                    <div class="reason-card glass" data-reason="2">
+                        <div class="card-front"><i class="fas fa-smile"></i><h3>Reason 2</h3></div>
+                        <div class="card-back"><p>Your laugh is instantly my absolute favorite sound in the world.</p></div>
+                    </div>
+                    <div class="reason-card glass" data-reason="3">
+                        <div class="card-front"><i class="fas fa-hands"></i><h3>Reason 3</h3></div>
+                        <div class="card-back"><p>How safe and incredibly warm I feel whenever you hold my hand.</p></div>
+                    </div>
+                    <div class="reason-card glass" data-reason="4">
+                        <div class="card-front"><i class="fas fa-star"></i><h3>Reason 4</h3></div>
+                        <div class="card-back"><p>Your kindness and how beautifully you care for everyone around you.</p></div>
+                    </div>
+                    <div class="reason-card glass" data-reason="5">
+                        <div class="card-front"><i class="fas fa-shield-alt"></i><h3>Reason 5</h3></div>
+                        <div class="card-back"><p>You are my calmest safe haven in the middle of any chaotic storm.</p></div>
+                    </div>
+                    <div class="reason-card glass" data-reason="6">
+                        <div class="card-front"><i class="fas fa-lightbulb"></i><h3>Reason 6</h3></div>
+                        <div class="card-back"><p>How you effortlessly make me want to become a better version of myself.</p></div>
+                    </div>
+                    <div class="reason-card glass" data-reason="7">
+                        <div class="card-front"><i class="fas fa-coffee"></i><h3>Reason 7</h3></div>
+                        <div class="card-back"><p>The cute little habits and expressions you make when you're focused.</p></div>
+                    </div>
+                    <div class="reason-card glass" data-reason="8">
+                        <div class="card-front"><i class="fas fa-compress-alt"></i><h3>Reason 8</h3></div>
+                        <div class="card-back"><p>You accept me entirely for who I am, flaws and all.</p></div>
+                    </div>
+                    <div class="reason-card glass" data-reason="9">
+                        <div class="card-front"><i class="fas fa-seedling"></i><h3>Reason 9</h3></div>
+                        <div class="card-back"><p>Your unwavering support for my wildest dreams and goals.</p></div>
+                    </div>
+                    <div class="reason-card glass" data-reason="10">
+                        <div class="card-front"><i class="fas fa-infinity"></i><h3>Reason 10</h3></div>
+                        <div class="card-back"><p>Because you are uniquely you, and life is infinitely better with you.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding reveal">
+            <div class="container quiz-wrapper">
+                <h2 class="section-title">Our Relationship Quiz</h2>
+                <div class="quiz-container glass" id="quiz">
+                    <div id="quiz-start">
+                        <p class="text-center">Let's see how well you remember our milestones! ready?</p>
+                        <button class="btn-main center-btn" onclick="startQuiz()">Start Quiz</button>
+                    </div>
+                    <div id="quiz-body" class="hidden">
+                        <div class="quiz-header">
+                            <span id="question-number">Question 1 of 3</span>
+                            <div class="progress-bar"><div id="progress"></div></div>
+                        </div>
+                        <h3 id="question-text">Question Text here?</h3>
+                        <div class="options-container" id="options">
+                            </div>
+                    </div>
+                    <div id="quiz-result" class="hidden text-center">
+                        <h3>Quiz Completed! 🎉</h3>
+                        <p id="score-text"></p>
+                        <div class="heart-badge"><i class="fas fa-envelope-heart"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="text-center secret-wrapper">
+            <button id="secret-btn" class="secret-trigger">🍀</button>
+            <p class="hint-text">There is a secret hidden luck charm nearby...</p>
+        </div>
+
+        <section class="section-padding reveal final-section">
+            <div class="container text-center">
+                <div class="final-card glass">
+                    <h2>Will You Continue Making Memories With Me?</h2>
+                    <div class="final-actions">
+                        <button id="final-yes" class="btn-main btn-lg">Yes, Forever! ❤️</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="lightbox" class="lightbox hidden">
+        <span class="close-lightbox">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="">
+        <div id="lightbox-caption"></div>
+    </div>
+
+    <div id="secret-modal" class="modal hidden">
+        <div class="modal-content glass">
+            <span class="close-modal">&times;</span>
+            <div class="modal-heart">❤️</div>
+            <p>"Thank you for being the best thing that ever happened to me."</p>
+        </div>
+    </div>
+
+    <div id="final-overlay" class="final-overlay hidden">
+        <div class="overlay-text">I Love You Forever ❤️</div>
+    </div>
+
+    <footer>
+        <p>Made with ❤️ just for you.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
